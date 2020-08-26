@@ -1,0 +1,55 @@
+<div class="row mt-5">
+  <div class="col-lg-4 mb-4">
+    <div class="card shadow border-none width80">
+      <div class="card-header px-3 pb-0 bg-white">
+        <div class="form-group">
+          <input type="text" #user (keyup)="searchUser(user.value)" class="form-control border-none"
+            placeholder="Search users">
+        </div>
+      </div>
+      <div class="card-body scroll-card">
+        <div class="card p-2 d-inline-block w-100 mb-3" *ngFor="let ul of gitUserList$ | async">
+          <img class="ml-2 rounded-circle img-circle mr-3" [attr.src]="ul.avatar_url" />
+          <a href="#" (click)="getUser(ul.login)"
+            class="text-decoration-none text-dark"><strong>{{ul.login}}</strong></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-3 mb-4" *ngIf="gitUserInfo$ | async as gui">
+    <div class="card shadow">
+      <img *ngIf="gui.avatar_url" class="card-img-top" [attr.src]="gui.avatar_url" alt="Card image"
+        style="width:100%">
+      <div class="card-body">
+        <p class="card-title fs-18"><a [attr.href]="gui.html_url" target="blank"><strong>{{gui.name}}</strong></a></p>
+        <p class="card-title fs-14 mb-1"><strong>Location: </strong> {{gui.location ? gui.location:'---'}}</p>
+        <p class="card-title fs-14 mb-1"><strong>Email: </strong> {{gui.email ? gui.email:'---'}}</p>
+        <p class="card-title fs-14 mb-1"><strong>Company: </strong> {{gui.company ? gui.company:'---'}}</p>
+        <p class="card-title fs-14 mb-1"><strong>Blog: </strong> <a
+            [attr.href]="gui.blog">{{gui.blog ? gui.blog:'---'}}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5 mb-4">
+    <div class="card shadow border-none">
+      <div class="card-header px-3 pb-0 bg-white">
+        <div class="form-group">
+          <input type="text" class="form-control" #query (keyup)="queryString=query.value" placeholder="Search repos">
+        </div>
+      </div>
+      <div class="card-body scroll-card">
+        <div class="card p-3 w-100 d-inline-block mb-3"
+          *ngFor="let guri of gitUserRepoInfo$ | searchFilter: queryString | async">
+          <h6><b><a [href]="guri.html_url" target="blank">{{guri.name}}</a></b></h6>
+          <p class="fs-14"><i>{{guri.full_name}}</i></p>
+          <p class="fs-12">{{guri.description}}</p>
+          <span class="badge badge-warning">{{guri.language}}</span>
+          <p class="fs-12 mt-1 mb-0"><i>Last Updated On {{guri.updated_at | date: 'medium'}}</i></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
