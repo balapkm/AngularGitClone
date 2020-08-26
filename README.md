@@ -1,10 +1,17 @@
 # Angular Git Clone
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
+Simple git API
 
 ## DEMO
 
-![Demo](../master/demo.gif)
+![Demo](../master/demo1.gif)
+
+## Project Features
+
+- List of all git users
+- Search users
+- Get particular user information
+- Search Repos of selected user
 
 ## Development server
 
